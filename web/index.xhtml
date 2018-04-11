@@ -2,11 +2,42 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:cc="http://xmlns.jcp.org/jsf/composite">
     <ui:composition template="/templates/template.xhtml">
         <ui:define name="titulo">Bate-Papo Virtual</ui:define>
         <ui:define name="conteudo">
-            <h2>Seja bem vindo!</h2>
+            <h:form id="formUsuario">
+                <h:panelGroup transient="false">
+                    <h:messages/>
+                    <p:panelGrid columns="2" columnClasses="ui-grid-col-2, ui-grid-col-20" 
+                                 layout="grid" styleClass="ui-panelgrid-blank">
+
+                        <p:outputLabel value="Usuário"/>
+                        <p:inputText  size="20" maxlength="40" value="#{controleChat.nome}"/>
+                        
+                       
+                        <p:commandButton value="Logar" actionListener="#{controleChat.adiciona()}"
+                                         icon="ui-icon-plus" process="@form" update="@form"/> 
+
+                    </p:panelGrid>
+                </h:panelGroup>
+                
+                
+            <h:panelGroup>
+             
+                <p:dataList value="#{controleChat.beanChat.usuarios}" var="usu" rows="10">
+                    
+                    <p:column headerText="Name">
+                        <p:outputLabel value="#{usu.nome}"/>
+                    </p:column>
+                    
+                  
+                </p:dataList>
+            </h:panelGroup>
+            </h:form>
         </ui:define>
     </ui:composition>
 </html>
