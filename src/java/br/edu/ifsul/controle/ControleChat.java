@@ -51,10 +51,11 @@ public class ControleChat implements Serializable {
     public void logoutChat() { 
         this.beanChat.adicionarMensagem(new Mensagem(usuario.getNome() + " saiu do bate papo"));
         this.beanChat.removerUsuario(usuario);
+       
     }
 
     public String verChat() {
-        return "index?faces-redirect=true";
+        return "chat";
     }
 
     public BeanChat getBeanChat() {
