@@ -38,23 +38,19 @@
 
                 <c:if test="#{controleChat.usuario.nome != null}">
                     <h:panelGroup>
-                        <b:dataTable value="#{controleChat.beanChat.mensagens}"
-                                     id="mensagens"
-                                     responsive="true"
-                                     searching="false"
-                                     var="obj"
-                                     paginated="false"
-                                     ajax="true">
-                            <b:dataTableColumn value="#{obj.mensagem}" orderable="false"/>
-                        </b:dataTable>
+                        <p:dataList value="#{controleChat.beanChat.mensagens}"
+                                     id="mensagens" var="msg">
+                            <p:outputLabel value="#{obj.nome}" /> falou: <p:outputLabel value="#{msg.mensagem}"/>         
+                           
+                        </p:dataList>
                             <p:poll interval="4" 
                                     listener="#{controleChat.atualizarMsg()}"
                                     update="mensagens"/>
 
-                            <c:if test="#{controleChat.usuario.nome != null}">
-                                <p:outputLabel value="Mensagem"/>
+                           
+                                <p:outputLabel value="Mensagens: "/>
 
-                                <p:inputText id="txtMsg" value="#{controleChat.mensagem.mensagem}"/>
+                                <p:inputText id="txtMsg" value="#{controleChat.mensagem.mensagem}" size="30"/>
 
                                 <p:column headerText="Ações">
                                     <b:commandButton value="Enviar"
@@ -66,7 +62,7 @@
                                                      actionListener="#{controleChat.logoutChat()}"
                                                      update="formListar"/>
                                 </p:column>
-                            </c:if>
+                            
 
 
                     </h:panelGroup>
