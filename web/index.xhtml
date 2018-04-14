@@ -49,7 +49,7 @@
                         <c:if test="#{controleChat.usuario.nome != null}">
                             <p:outputLabel value="Escreva sua mensagem: "/>
 
-                            <p:inputText id="txtMsg" value="#{controleChat.mensagem.mensagem}" size="30"/>
+                            <p:editor id="txtMsg" value="#{controleChat.mensagem.mensagem}"/>
 
 
                             &nbsp; <p:column headerText="Ações">
@@ -73,9 +73,7 @@
                                     <f:converter converterId="converterCalendar"/>&nbsp;
                                 </p:outputLabel>
                                 <p:outputLabel value="#{msg.usuario.nome}"/>&nbsp;
-                                <p:outputLabel value="#{msg.mensagem}"/>  
-
-
+                                <p:outputLabel value="#{msg.mensagem}"/>                                  
                             </div>
 
                         </p:dataScroller>
