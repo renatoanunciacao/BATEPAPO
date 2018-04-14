@@ -11,8 +11,10 @@ import br.edu.ifsul.modelo.Usuarios;
 import java.io.Serializable;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Map;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.context.FacesContext;
 import javax.inject.Named;
 
 /**
@@ -48,10 +50,13 @@ public class ControleChat implements Serializable {
         this.beanChat.adicionarMensagem(new Mensagem(usuario.getNome() + " entrou no bate papo"));
     }
 
-    public void logoutChat() { 
+    public String logoutChat() { 
         this.beanChat.adicionarMensagem(new Mensagem(usuario.getNome() + " saiu do bate papo"));
         this.beanChat.removerUsuario(usuario);
-       
+        Map sessionMap = FacesContext.getCurrentInstance().getExternalContext().getSessionMap();
+        sessionMap.clear();
+        return "inicio";
+
     }
 
     public String verChat() {
