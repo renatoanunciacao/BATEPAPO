@@ -25,6 +25,7 @@ public class BeanChat implements Serializable {
 
     private List<Mensagem> mensagens = new ArrayList<>();
     private List<Usuarios> usuarios = new ArrayList<>();
+    private String conversa;
 
     public BeanChat() {
 
@@ -37,22 +38,13 @@ public class BeanChat implements Serializable {
             FacesContext.getCurrentInstance().addMessage(null, msg);
 
         } else {
+            obj.setId(this.usuarios.size() + 1);
             usuarios.add(obj);
             System.out.println("nome: " + obj.getNome());
             FacesMessage msg = new FacesMessage("Usuário adicionado ao chat!");
             FacesContext.getCurrentInstance().addMessage(null, msg);
         }
-
-//        for (Usuarios u : usuarios) {
-//            if (!u.getNome().equals(obj.getNome())) {
-//                usuarios.add(obj);
-//                FacesMessage msg = new FacesMessage("Usuário adicionado ao chat!");
-//                FacesContext.getCurrentInstance().addMessage(null, msg);
-//            } else {
-//                FacesMessage msg = new FacesMessage("Usuário já existe com esse nome no chat!");
-//                FacesContext.getCurrentInstance().addMessage(null, msg);
-//            }
-//        }
+        
     }
 
     public void removerUsuario(Usuarios obj) {
@@ -61,7 +53,7 @@ public class BeanChat implements Serializable {
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
 
-    public void adicionarMensagem(Usuarios usu, Mensagem obj) {
+    public void adicionarMensagem(Mensagem obj) {
         mensagens.add(obj);
 
     }
@@ -80,6 +72,14 @@ public class BeanChat implements Serializable {
 
     public void setUsuarios(List<Usuarios> usuarios) {
         this.usuarios = usuarios;
+    }
+
+    public String getConversa() {
+        return conversa;
+    }
+
+    public void setConversa(String conversa) {
+        this.conversa = conversa;
     }
 
 }

@@ -16,7 +16,7 @@ import org.hibernate.validator.constraints.NotBlank;
  */
 public class Usuarios implements Serializable {
 
-    
+    private Integer id;
     @NotBlank(message = "O nome não pode ser em branco")
     @Length(max = 20, message = "O nome não pode ser maior do que {max} caracteres")
     private String nome;
@@ -25,7 +25,8 @@ public class Usuarios implements Serializable {
 
     }
 
-    public Usuarios(String nome) {
+    public Usuarios(Integer id,String nome) {
+        this.id = id;
         this.nome = nome;
     }
 
@@ -61,6 +62,14 @@ public class Usuarios implements Serializable {
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
 }

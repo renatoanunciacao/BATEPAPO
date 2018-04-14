@@ -9,6 +9,8 @@ import br.edu.ifsul.ejb.BeanChat;
 import br.edu.ifsul.modelo.Mensagem;
 import br.edu.ifsul.modelo.Usuarios;
 import java.io.Serializable;
+import java.util.Calendar;
+import java.util.List;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
@@ -24,28 +26,37 @@ public class ControleChat implements Serializable {
     @EJB
     private BeanChat beanChat;
 
-    private String nome;
+    private Mensagem mensagem;
 
-    private String mensagem;
+    private Usuarios usuario;
 
     public ControleChat() {
+        this.mensagem = new Mensagem();
+        this.usuario = new Usuarios();
+    }
+
+    public void adicionaMsg(Usuarios usuario) {
+        this.getMensagem().setHoraMensagem(Calendar.getInstance());
+        this.getMensagem().setUsuario(getUsuario());
+        this.beanChat.adicionarMensagem(getMensagem());
+        this.setMensagem(new Mensagem());
 
     }
 
-    public String adiciona() {
-        Usuarios u = new Usuarios(nome);
-        beanChat.adicionaUsuario(u);
-        return "chat";
+    public void logarChat() {
+        this.beanChat.adicionaUsuario(usuario);
+        this.beanChat.adicionarMensagem(new Mensagem(usuario.getNome() + " acabou de entrar: ", Calendar.getInstance()));
     }
 
-    public String enviaMensagem(Usuarios u) {
-        Mensagem m = new Mensagem(mensagem);
-        beanChat.adicionarMensagem(u, m);
-        return "chat";
+    public void logoutChat() {
+        this.beanChat.adicionaUsuario(usuario);
+        this.beanChat.adicionarMensagem(new Mensagem(usuario.getNome() + " acabou de sair: ", Calendar.getInstance()));
+        
+        this.beanChat.removerUsuario(usuario);
     }
 
     public String verChat() {
-        return "chat";
+        return "index?faces-redirect=true";
     }
 
     public BeanChat getBeanChat() {
@@ -56,20 +67,26 @@ public class ControleChat implements Serializable {
         this.beanChat = beanChat;
     }
 
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public String getMensagem() {
+    public Mensagem getMensagem() {
         return mensagem;
     }
 
-    public void setMensagem(String mensagem) {
+    public void setMensagem(Mensagem mensagem) {
         this.mensagem = mensagem;
     }
+
+    public Usuarios getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuarios usuario) {
+        this.usuario = usuario;
+    }
+
+    public List<Mensagem> atualizarMsg() {
+        return beanChat.getMensagens();
+    }
+    
+ 
 
 }
