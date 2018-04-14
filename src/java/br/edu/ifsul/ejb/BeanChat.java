@@ -48,9 +48,7 @@ public class BeanChat implements Serializable {
     }
 
     public void removerUsuario(Usuarios obj) {
-        usuarios.remove(obj);
-        FacesMessage msg = new FacesMessage("Usuário removido do chat!");
-        FacesContext.getCurrentInstance().addMessage(null, msg);
+        usuarios.remove(obj);        
     }
 
     public void adicionarMensagem(Mensagem obj) {

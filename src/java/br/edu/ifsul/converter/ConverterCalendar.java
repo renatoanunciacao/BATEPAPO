@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package br.edu.ifsul.util;
+package br.edu.ifsul.converter;
 
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
@@ -17,9 +17,9 @@ import javax.faces.convert.FacesConverter;
  *
  * @author Renato
  */
-@FacesConverter(value = "conveterCalendar")
-public class Util implements Serializable, Converter{
-SimpleDateFormat sdf = new SimpleDateFormat("hh:mm:ss");
+@FacesConverter(value = "converterCalendar")
+public class ConverterCalendar implements Serializable,Converter{
+    SimpleDateFormat sdf = new SimpleDateFormat("hh:mm:ss");
     @Override
     public Object getAsObject(FacesContext fc, UIComponent uic, String string) {
         try{

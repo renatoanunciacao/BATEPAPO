@@ -45,14 +45,13 @@ public class ControleChat implements Serializable {
 
     public void logarChat() {
         this.beanChat.adicionaUsuario(usuario);
-        this.beanChat.adicionarMensagem(new Mensagem(usuario.getNome() + " acabou de entrar: ", Calendar.getInstance()));
+        this.beanChat.adicionarMensagem(new Mensagem(usuario.getNome() + " entrou no bate papo"));
     }
 
-    public void logoutChat() {
-        this.beanChat.adicionaUsuario(usuario);
-        this.beanChat.adicionarMensagem(new Mensagem(usuario.getNome() + " acabou de sair: ", Calendar.getInstance()));
-        
+    public void logoutChat() { 
+        this.beanChat.adicionarMensagem(new Mensagem(usuario.getNome() + " saiu do bate papo"));
         this.beanChat.removerUsuario(usuario);
+        
     }
 
     public String verChat() {
