@@ -38,9 +38,10 @@
 
                 <c:if test="#{controleChat.usuario.nome != null}">
                     <h:panelGroup>
+                        <!--arrumar 
                         <p:dataList value="#{controleChat.beanChat.mensagens}"
                                      id="mensagens" var="msg">
-                            <p:outputLabel value="#{obj.nome}" /> falou: <p:outputLabel value="#{msg.mensagem}"/>         
+                            <p:outputLabel value="#{controleChat.usuario.nome} diz: " /> <p:outputLabel value="#{msg.mensagem}"/>         
                            
                         </p:dataList>
                             <p:poll interval="4" 
