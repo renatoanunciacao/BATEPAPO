@@ -35,7 +35,7 @@ public class ControleChat implements Serializable {
         this.usuario = new Usuarios();
     }
 
-    public void adicionaMsg(Usuarios usuario) {
+    public void adicionaMsg() {
         this.getMensagem().setHoraMensagem(Calendar.getInstance());
         this.getMensagem().setUsuario(getUsuario());
         this.beanChat.adicionarMensagem(getMensagem());

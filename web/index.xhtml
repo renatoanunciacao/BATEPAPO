@@ -12,19 +12,16 @@
         <ui:define name="titulo">Bate-Papo Virtual</ui:define>
         <ui:define name="conteudo">
             <h:form id="formListar">
-
+                
                 <b:dataTable value="#{controleChat.beanChat.usuarios}"
                              searching="false"
                              paginated="false"
                              info="false"
                              var="obj">
-                    <b:dataTableColumn>
-                        <p:outputLabel value="#{obj.nome}"/>
-                    </b:dataTableColumn>
+                    <b:dataTableColumn value="#{obj.nome}"></b:dataTableColumn>
                 </b:dataTable>
 
                 <p:column headerText="Nome">
-                    <p:outputLabel value="Usuários"/>
                     <p:outputLabel value="#{controleChat.beanChat.usuarios.size()}"/>
                 </p:column>
 
@@ -39,6 +36,41 @@
                     </h:form>
                 </c:if>
 
+                <c:if test="#{controleChat.usuario.nome != null}">
+                    <h:panelGroup>
+                        <b:dataTable value="#{controleChat.beanChat.mensagens}"
+                                     id="mensagens"
+                                     responsive="true"
+                                     searching="false"
+                                     var="obj"
+                                     paginated="false"
+                                     ajax="true">
+                            <b:dataTableColumn value="#{obj.mensagem}" orderable="false"/>
+                        </b:dataTable>
+                            <p:poll interval="4" 
+                                    listener="#{controleChat.atualizarMsg()}"
+                                    update="mensagens"/>
+
+                            <c:if test="#{controleChat.usuario.nome != null}">
+                                <p:outputLabel value="Mensagem"/>
+
+                                <p:inputText id="txtMsg" value="#{controleChat.mensagem.mensagem}"/>
+
+                                <p:column headerText="Ações">
+                                    <b:commandButton value="Enviar"
+                                                     icon="ui-icon-plus"
+                                                     actionListener="#{controleChat.adicionaMsg()}"
+                                                     update="formListar"/>
+                                    <b:commandButton value="Sair"
+                                                     icon="ui-icon-trash"
+                                                     actionListener="#{controleChat.logoutChat()}"
+                                                     update="formListar"/>
+                                </p:column>
+                            </c:if>
+
+
+                    </h:panelGroup>
+                </c:if>
 
 
             </h:form> 
