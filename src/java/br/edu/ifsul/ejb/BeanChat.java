@@ -46,6 +46,14 @@ public class BeanChat implements Serializable {
         }
         
     }
+    
+    public boolean testeUsuario(Usuarios obj){
+        if(usuarios.contains(obj)){
+            return true;
+        }else{
+            return false;
+        }
+    }
 
     public void removerUsuario(Usuarios obj) {
         usuarios.remove(obj);        

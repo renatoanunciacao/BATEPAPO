@@ -42,21 +42,24 @@ public class ControleChat implements Serializable {
         this.getMensagem().setUsuario(getUsuario());
         this.beanChat.adicionarMensagem(getMensagem());
         this.setMensagem(new Mensagem());
-
     }
 
     public void logarChat() {
-        this.beanChat.adicionaUsuario(usuario);
-        this.beanChat.adicionarMensagem(new Mensagem(usuario.getNome() + " entrou no bate papo"));
+        if (this.beanChat.testeUsuario(usuario)) {
+            usuario.setNome(null);
+            Map sessionMap = FacesContext.getCurrentInstance().getExternalContext().getSessionMap();
+            sessionMap.clear();
+        } else {
+            this.beanChat.adicionaUsuario(usuario);
+            this.beanChat.adicionarMensagem(new Mensagem(usuario.getNome() + " entrou no bate papo"));
+        }
     }
 
-    public String logoutChat() { 
+    public void logoutChat() {
         this.beanChat.adicionarMensagem(new Mensagem(usuario.getNome() + " saiu do bate papo"));
         this.beanChat.removerUsuario(usuario);
         Map sessionMap = FacesContext.getCurrentInstance().getExternalContext().getSessionMap();
         sessionMap.clear();
-        return "inicio";
-
     }
 
     public String verChat() {
@@ -90,7 +93,5 @@ public class ControleChat implements Serializable {
     public List<Mensagem> atualizarMsg() {
         return beanChat.getMensagens();
     }
-    
- 
 
 }
