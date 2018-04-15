@@ -13,26 +13,24 @@
             <h:form id="formListar">
                 <h:messages/>
                 <c:if test="#{controleChat.usuario.nome != null}">
+
                     <p:dataScroller value="#{controleChat.beanChat.usuarios}" var="obj">
                         <p:outputLabel value="#{obj.nome}"></p:outputLabel>
-
                     </p:dataScroller>
                 </c:if>
-
                 <c:if test="#{controleChat.usuario.nome == null}">
                     <h:form id="formUsuario">
-                        <p:outputLabel value="Usuário"/>
-                        <p:inputText value="#{controleChat.usuario.nome}"/>
+                        <p:outputLabel value="Informe seu nickname: "/>&nbsp;
+                        <p:inputText value="#{controleChat.usuario.nome}"/>&nbsp;
                         <b:commandButton value="Entrar"
                                          icon="ui-icon-pencil"
+                                         class="btn btn-success"
                                          actionListener="#{controleChat.logarChat()}"
                                          update=":formListar"/>
                     </h:form>
-
-                </c:if>
-           
+                </c:if>       
                 <c:if test="#{controleChat.usuario.nome != null}">
-                    <div align="center">
+                    <div align="left">
                         <p:column headerText="Ação">
                             <b:commandButton value="Sair"
                                              icon="ui-icon-pencil"
@@ -41,30 +39,24 @@
                                              update=":formListar"/>
                         </p:column>
                     </div>
-
                     <h:panelGroup>
-
                         <br/><br/><br/><br/>
                         <c:if test="#{controleChat.usuario.nome != null}">
-                            <p:outputLabel value="Escreva sua mensagem: "/>
+                            <div align="left">
+                                <p:outputLabel value="Escreva sua mensagem: "/>
 
-                            <p:editor id="txtMsg" value="#{controleChat.mensagem.mensagem}"/>
-
-
-                            &nbsp; <p:column headerText="Ações">
-                                <b:commandButton value="Enviar"
-                                                 icon="ui-icon-plus"
-                                                 class="btn btn-success"
-                                                 actionListener="#{controleChat.adicionaMsg()}"
-                                                 update="formListar"/>&nbsp;
+                                <p:inputTextarea id="txtMsg" value="#{controleChat.mensagem.mensagem}" required="true"/>
 
 
-                            </p:column>
-
-
+                                &nbsp; <p:column headerText="Ações">
+                                    <b:commandButton value="Enviar"
+                                                     icon="ui-icon-plus"
+                                                     class="btn btn-success"
+                                                     actionListener="#{controleChat.adicionaMsg()}"
+                                                     update="formListar"/>&nbsp;
+                                </p:column>
+                            </div>
                         </c:if>
-
-
                         <br/><br/> <p:dataScroller value="#{controleChat.beanChat.mensagens}"
                                                    id="mensagens" var="msg" rows="20" scrollHeight="30">
                             <div align="right">
@@ -74,7 +66,6 @@
                                 <p:outputLabel value="#{msg.usuario.nome}"/>&nbsp;
                                 <p:outputLabel value="#{msg.mensagem}"/>                                  
                             </div>
-
                         </p:dataScroller>
                         <p:poll interval="4" 
                                 listener="#{controleChat.atualizarMsg()}"
